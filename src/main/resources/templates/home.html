@@ -1,0 +1,18 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+<body>
+<h2>首页</h2>
+<!--/*@thymesVar id="user" type="com.usst.demo.vo.User"*/-->
+<p>您好 <span th:text="${user==null?'游客':user.nickName}"></span></p>
+<div>
+    <a th:href="@{/login}">登录</a>|
+    <a th:href="@{/register}">注册</a>
+</div>
+</body>
+</html>
