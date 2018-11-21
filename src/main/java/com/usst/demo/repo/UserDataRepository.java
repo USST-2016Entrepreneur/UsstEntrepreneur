@@ -21,13 +21,14 @@ public class UserDataRepository {
     }
     public UserData getUserData(Integer uid){
         List<UserData> list = jdbc.query("select phone_number, email, grade," +
-                "university.name,sex,user_basic.username, user_basic.nickname from user_basic,user_info inner join university" +
-                " on user_info.university_id=university.university_id" +
-                    " where user_basic.uid=? and user_info.uid=?;", new PreparedStatementSetter() {
+                "university.name,sex,user_basic.username, user_basic.nickname," +
+                " register_date from user_basic,user_info left join university on " +
+                        "user_info.university_id=university.university_id" +
+                    " where user_basic.uid=? and user_info.uid=user_basic.uid;",
+                new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
                 ps.setString(1,uid.toString());
-                ps.setString(2,uid.toString());
             }
         }, new RowMapper<UserData>() {
             @Override
@@ -42,6 +43,7 @@ public class UserDataRepository {
                 userData.setUsername(rs.getString(6));
                 userData.setNickName(rs.getString(7));
                 userData.setSex(sex);
+                userData.setRegisterDate(rs.getDate(8));
                 return userData;
             }
         });

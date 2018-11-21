@@ -6,5 +6,5 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/groupping")
-public class GroupSetUpController {
+public class GrouppingController {
 }

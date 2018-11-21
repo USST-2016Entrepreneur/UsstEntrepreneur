@@ -1,5 +1,7 @@
 package com.usst.demo.vo;
 
+import java.util.Date;
+
 public class UserData {
     private String phone_number;
     private String email;
@@ -8,6 +10,15 @@ public class UserData {
     private String sex;
     private String username;
     private String nickName;
+    private Date registerDate;
+
+    public Date getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(Date registerDate) {
+        this.registerDate = registerDate;
+    }
 
     public String getNickName() {
         return nickName;

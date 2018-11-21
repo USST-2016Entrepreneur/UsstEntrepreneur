@@ -33,6 +33,9 @@ public class UserDataController {
     public String userPage(Model model, @PathVariable("uid") Integer id){
         System.out.println("用户id:"+id);
         UserData userData = userDataRepository.getUserData(id);
+        if(userData==null){
+            System.out.println("错了！userData为空!");
+        }
         model.addAttribute("userData",userData);
         return "/user/userinfo.html";
     }

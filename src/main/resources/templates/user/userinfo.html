@@ -18,6 +18,10 @@
         <td th:text="${userData.uid}"></td>
     </tr>
     <tr>
+        <td>注册时间:</td>
+        <td th:text="${#dates.format(userData.registerDate,'yyyy-MM-dd')}"></td>
+    </tr>
+    <tr>
         <td>昵称:</td>
         <td th:text="${userData.nickName}"></td>
     </tr>

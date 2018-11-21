@@ -11,10 +11,10 @@
 <p>您好 <span th:text="${session.user==null?'游客':session.user.nickName}"></span></p>
 <ul th:if="${session.user!=null}">
     <li>
-        <a th:href="@{'user/'+${session.user.uid}}" >个人中心</a>
+        <a th:href="@{'/user/'+${session.user.uid}}" >个人中心</a>
     </li>
     <li>
-        <a th:href="@{/group}">我的组队</a>
+        <a th:href="@{'/user/'+${session.user.uid}+'/group'}">我的组队</a>
     </li>
 </ul>
 <div>
