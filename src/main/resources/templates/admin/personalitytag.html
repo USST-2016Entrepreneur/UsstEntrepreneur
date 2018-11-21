@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>标签</title>
+</head>
+<body>
+<p>显示personality tag标签</p>
+<!--/*@thymesVar id="personalitytaglist" type="java.util.List<com.usst.demo.vo.Tag>"*/-->
+<ul th:each="ptag : ${personalitytaglist}">
+    <li><span th:text="${ptag.tagId}"></span>:<span th:text="${ptag.tagName}"></span></li>
+</ul>
+<hr>
+<p>新增field tag标签</p>
+<form th:action="@{./addpersonalitytag}" method="post">
+    <label>标签名称：<input type="text" name="tagName"></label><br>
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>

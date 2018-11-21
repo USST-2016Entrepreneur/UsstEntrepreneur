@@ -6,22 +6,20 @@
 </head>
 <body>
 <p>用户信息</p>
-<!--/*@thymesVar id="user" type="com.usst.demo.vo.User"*/-->
 <!--/*@thymesVar id="userData" type="com.usst.demo.vo.UserData"*/-->
 
 <table>
     <tr>
         <td>用户名:</td>
-        <td th:text="${session.user.username}"></td>
-    </tr>
-    <tr>
-        <td>密码:</td>
-        <td th:text="${session.user.password}"></td>
         <td th:text="${userData.username}"></td>
     </tr>
     <tr>
         <td>ID:</td>
         <td th:text="${userData.uid}"></td>
+    </tr>
+    <tr>
+        <td>昵称:</td>
+        <td th:text="${userData.nickName}"></td>
     </tr>
     <tr>
         <td>E-mail:</td>
@@ -44,9 +42,8 @@
         <td th:text="${userData.grade}"></td>
     </tr>
 </table>
-</body>
-    <a th:action="@{updatedata}" method="post">修改数据</a>
-</table>
+<a th:if="${session.user!=null}" th:href="${session.user.uid}+'/updatedata'">修改数据</a>
+<a th:href="@{/}">返回首页</a>
 </body>
 
 </html>

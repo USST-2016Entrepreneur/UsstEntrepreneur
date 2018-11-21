@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>标签</title>
+</head>
+<body>
+<p>显示field tag标签</p>
+<!--/*@thymesVar id="fieldtaglist" type="java.util.List<com.usst.demo.vo.Tag>"*/-->
+<ul th:each="fieldtag : ${fieldtaglist}">
+    <li><span th:text="${fieldtag.tagId}"></span>:<span th:text="${fieldtag.tagName}"></span></li>
+</ul>
+<hr>
+<p>新增field tag标签</p>
+<form th:action="@{./addfieldtag}" method="post">
+    <label>标签名称：<input type="text" name="tagName"></label><br>
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>

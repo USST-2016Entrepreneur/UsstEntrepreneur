@@ -8,10 +8,18 @@
 </head>
 <body>
 <h2>首页</h2>
-<!--/*@thymesVar id="user" type="com.usst.demo.vo.User"*/-->
-<p>您好 <span th:text="${user==null?'游客':user.nickName}"></span></p>
+<p>您好 <span th:text="${session.user==null?'游客':session.user.nickName}"></span></p>
+<ul th:if="${session.user!=null}">
+    <li>
+        <a th:href="@{'user/'+${session.user.uid}}" >个人中心</a>
+    </li>
+    <li>
+        <a th:href="@{/group}">我的组队</a>
+    </li>
+</ul>
 <div>
-    <a th:href="@{/login}">登录</a>|
+    <a th:href="@{/login}" th:if="${session.user==null}" th:text="'登录'"></a>
+    <a th:href="@{/logout}" th:if="${session.user!=null}" th:text="'退出登录'"></a>|
     <a th:href="@{/register}">注册</a>
 </div>
 </body>
