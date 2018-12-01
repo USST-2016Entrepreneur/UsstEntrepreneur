@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>组队申请</title>
+
+<link rel="stylesheet" type="text/css" href="resources/static/base.css">
+<link rel="stylesheet" type="text/css" href="resources/static/home.css">
+
+</head>
+<body>
+<section class="aui-content">
+	<div style="height:20px;"></div>
+	<div class="aui-content-up">
+		<form action="" th:action="@{/subscribe}" name="group_form" method="post">
+			<div class="aui-content-up-form">
+				<h2>队伍信息</h2>
+			</div>
+			<div class="aui-form-group clear">
+				<label class="aui-label-control">
+					申请人姓名 <em>*</em>
+				</label>
+				<div class="aui-form-input">
+					<input type="text" class="aui-form-control-two" name="yourname" onBlur="check_name()" required id="1" placeholder="">
+					<span class="tips" id="divname">长度1~6个字符</span>
+				</div>
+			</div>
+			<div class="aui-form-group clear">
+				<label class="aui-label-control">
+					项目名称 <em>*</em>
+				</label>
+				<div class="aui-form-input">
+					<input type="text" class="aui-form-control-two" name="proname" id="2" placeholder="" onBlur="check_project_name()" required/>
+					<span class="tips" id="divproname"></span>
+				</div>
+			</div>
+
+			<div class="aui-form-group clear">
+				<label class="aui-label-control">
+					项目人数 <em>*</em>
+				</label>
+				<div class="aui-form-input">
+					最少
+					<select id="min">
+						<option value="one">1</option>
+					  <option value="two">2</option>
+					  <option value="three">3</option>
+					</select>
+					人</br></br>最多
+					<select id="max">
+						<option value="four">4</option>
+					  <option value="five">5</option>
+					  <option value="six">6</option>
+					</select>
+					人
+					</div>
+			</div>
+
+			<div class="aui-form-group clear">
+				<label class="aui-label-control">
+					项目类型 <em>*</em>
+				</label>
+				<div class="aui-form-input">
+					<select id="sel" onchange="doSome();">
+						<option value="math">数学</option>
+					  <option value="computer">计算机</option>
+					  <option value="other">其他</option>
+					<br>
+						<input type="text" style="display:none" class="aui-form-control-two" name="protype" id="protype" placeholder="请输入备注" required/>
+					</select>
+					</div>
+			</div>
+
+			<div class="aui-form-group clear">
+				<label class="aui-label-control">
+					项目简介
+				</label>
+				<div class="aui-form-input">
+					<textarea class="aui-form-control" name="description" id="4" minlength="5"></textarea>
+					</br>
+				</div>
+			</div>
+
+	</div>
+	<div class="aui-btn-default">
+		<button type="submit" class="aui-btn aui-btn-account">保存并提交审核</button>
+	<button class="aui-btn aui-btn-account" onclick="window.location.href('连接')">返回</button>
+	</div>
+</form>
+</section>
+<!-- mask begin -->
+<!-- <div class="aui-mask aui-works-mask">
+	<div class="aui-mask-content">
+		<p class="aui-delete-text">确定要删除你上传的资料？</p>
+		<p class="aui-check-text">
+			<span class="aui-delete aui-accept-ok">确定</span>
+			<span class="aui-accept-no">取消</span>
+		</p>
+	</div>
+</div> -->
+<!-- mask end -->
+<script type="text/javascript" src="resources/static/jquery.min.js"></script>
+<script type="text/javascript" src="resources/static/up.js"></script>
+<script type="text/javascript">
+
+function doSome(){
+	if($("#sel option:selected").val()=="other"){
+	 $("#protype").css({'display':'block'});
+ }else {
+ 	$("#protype").css({'display':'none'});
+ }
+}
+	//验证姓名
+	function check_name(){
+		na=form1.yourname.value;
+		if( na.length <1 || na.length >6)
+		{
+			divname.innerHTML='<font class="tips_false">输入错误,长度是1~6个字符</font>';
+		}else{
+			divname.innerHTML='<font class="tips_true">输入正确</font>';
+		}
+	}
+//验证项目名称
+	function check_project_name(){
+		na=form1.proname.value;
+		if( na.length <1 )
+		{
+			divproname.innerHTML='<font class="tips_false">项目名称不可为空</font>';
+		}else{
+			divproname.innerHTML='<font class="tips_true">输入正确</font>';
+		}
+	}
+
+</script>
+
+</body>
+</html>
