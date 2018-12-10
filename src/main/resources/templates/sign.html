@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>登录注册</title>
+
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/login.css" />
+<script src="js/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script>
+	$(document).ready(function() {
+		//打开会员登录
+		$("#Login_start_").click(function() {
+			$("#regist_container").hide();
+			$("#_close").show();
+			$("#_start").animate({
+				left: '350px',
+				height: '520px',
+				width: '400px'
+			}, 500, function() {
+				$("#login_container").show(500);
+				$("#_close").animate({
+					height: '40px',
+					width: '40px'
+				}, 500);
+			});
+		});
+		//打开会员注册
+		$("#Regist_start_").click(function() {
+			$("#login_container").hide();
+			$("#_close").show();
+			$("#_start").animate({
+				left: '350px',
+				height: '520px',
+				width: '400px'
+			}, 500, function() {
+				$("#regist_container").show(500);
+				$("#_close").animate({
+					height: '40px',
+					width: '40px'
+				}, 500);
+			});
+		});
+		//关闭
+		$("#_close").click(function() {
+
+			$("#_close").animate({
+				height: '0px',
+				width: '0px'
+			}, 500, function() {
+				$("#_close").hide(500);
+				$("#login_container").hide(500);
+				$("#regist_container").hide(500);
+				$("#_start").animate({
+					left: '0px',
+					height: '0px',
+					width: '0px'
+				}, 500);
+			});
+		});
+		//去 注册
+		$("#toRegist").click(function(){
+			$("#login_container").hide(500);
+			$("#regist_container").show(500);
+		});
+		//去 登录
+		$("#toLogin").click(function(){
+			$("#regist_container").hide(500);
+			$("#login_container").show(500);
+		});
+	});
+</script>
+<!--验证码代码部分-->
+<script type="text/javascript">
+	var clock = '';
+	var nums = 30;
+	var btn;
+	function sendCode(thisBtn) {
+		btn = thisBtn;
+		btn.disabled = true; //将按钮置为不可点击
+		btn.value = '重新获取（'+nums+'）';
+		clock = setInterval(doLoop, 1000); //一秒执行一次
+	}
+
+	function doLoop() {
+		nums--;
+		if (nums > 0) {
+			btn.value = '重新获取（'+nums+'）';
+		} else {
+			clearInterval(clock); //清除js定时器
+			btn.disabled = false;
+			btn.value = '点击发送验证码';
+			nums = 10; //重置时间
+		}
+	}
+
+	$(document).ready(function(){
+		$("#login_QQ").click(function(){
+			alert("暂停使用！");
+		});
+		$("#login_WB").click(function(){
+			alert("暂停使用！");
+		});
+	});
+</script>
+ <!-- 验证用户名部分 -->
+<script type="text/javascript">
+		 function loadXMLDoc() {
+				 if (document.getElementById("regist_account").value == "") {
+						 document.getElementById("accDiv").innerHTML = "用户名不能为空";
+						 return;
+				 }
+				 var xmlHttp;
+				 if(window.XMLHttpRequest) { // code for IE7+
+						 xmlHttp = new XMLHttpRequest();
+				 }
+				 else { // code for IE5/IE6
+						 xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+				 }
+
+				 xmlHttp.onreadystatechange = function () {
+						 if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+								 //从后台返回true or false
+								 if (xmlHttp.responseText == "true") {
+										 document.getElementById("accDiv").innerHTML = "用户名不可用";
+								 }
+								 else {
+										 document.getElementById("accDiv").innerHTML = "用户名可用";
+								 }
+						 }
+				 }
+				 var a = document.getElementById("regist_account").value;
+				 // get
+				 xmlHttp.open("GET", "validate.aspx?account=" + a + "&random=" + Math.random, true);
+				 xmlHttp.send();
+		 }
+		 // function delData() {
+			// 	 document.getElementById("account").value = "";
+			// 	 document.getElementById("accDiv").innerHTML = "";
+		 // }
+ </script>
+</head>
+<body>
+
+<center>
+<a id="Login_start_" class="btn btn-primary" style="width:100px;height:40px;border-radius: 20;">登录</a>
+<a id="Regist_start_" class="btn btn-success" style="width:100px;height:40px;border-radius: 20;">注册</a>
+</center>
+
+<!-- 会员登录  -->
+<!--<div id='Login_start' style="position: absolute;" >-->
+<div id="_start">
+	<form action="" th:action="@{/login_subscribe}" name="login_form" method="post">
+	<div id="_close" style="display: none;">
+		<span class="glyphicon glyphicon-remove"></span>
+	</div>
+	<br />
+	<!--登录框-->
+	<div id="login_container">
+		<div class="lab1">
+			<span class="lab_login">会员登录</span>
+			<span id="lab_toRegist">
+				&emsp;还没有账号&nbsp;
+				<span id="toRegist" style="color: #EB9316;cursor: pointer;">立即注册</span>
+			</span>
+		</div>
+		<div style="width:330px;">
+			<span id="lab_type1">手机号/账号登录</span>
+		</div>
+		<div id="form_container1">
+			<br />
+			<input type="text" class="form-control" placeholder="手机号/用户名" id="login_number" />
+			<input type="password" class="form-control" placeholder="密码" id="login_password" />
+			<button type="submit" value="登录" class="btn btn-warning" id="login_btn" />
+			<span id="rememberOrfindPwd">
+				<span style="color:#000000">
+					<input id="remember" type="checkbox" value="记住密码" style="margin-bottom: -1.5px;">
+					记住密码&emsp;&emsp;&emsp;&emsp;
+				</span>
+			<span style="color:#000000">
+					<a href="#" th:href="@{}">忘记密码</a>
+				</span>
+			</span>
+		</div>
+
+
+		<!-- <div style="display:block;width:330px;height：40px;">
+			<span id="lab_type2">使用第三方直接登陆</span>
+		</div>
+		<div style="width:330px;height:100px;border-bottom: 1px solid #FFFFFF;">
+			<br />
+			<button id="login_QQ" type="button" class="btn btn-info">
+				<img src="img/qq32.png" style="width:20px;margin-top:-4px;" />&emsp;QQ登录
+			</button>
+			<button id="login_WB" type="button" class="btn btn-danger">
+				<img src="img/sina32.png" style="width:20px;margin-top:-4px;" />&emsp;微博登录
+			</button>
+		</div> -->
+	</div>
+	</form>
+	<!-- 会员注册 -->
+
+	<div id="regist_container" style="display: none;">
+		<form action="" th:action="@{/register_subscribe}" name="register_form" method="post">
+		<div class="lab1">
+			<span class="lab_login">会员注册</span>
+			<span id="lab_toLogin">
+				&emsp;已有账号&nbsp;
+				<span id="toLogin" style="color: #EB9316;cursor: pointer;">立即登录</span>
+			</span>
+		</div>
+		<div id="form_container2" style="padding-top: 25px;">
+			<tr>
+       <td><input type="text" class="form-control" id="regist_account"  placeholder="用户名"  onblur="loadXMLDoc();" onfocus="delData();"/></td><td><div id="accDiv"></div></td>
+      </tr>
+			<input type="password" class="form-control" placeholder="密码" id="regist_password1" />
+			<input type="password" class="form-control" placeholder="确认密码" id="regist_password2" />
+			<!-- <input type="text" class="form-control" placeholder="手机号" id="regist_phone" />
+			<input type="text" class="form-control" placeholder="验证码" id="regist_vcode" />
+			<!-- <button id="getVCode" type="button" class="btn btn-success" >获取验证码</button>-->
+			<!-- <input id="getVCode" type="button" class="btn btn-success" value="点击发送验证码" onclick="sendCode(this)" /> -->
+
+		</div>
+		<button type="submit" value="注册" class="btn btn-warning" id="regist_btn" />
+		</form>
+	</div>
+</div>
+
+</body>
+</html>
